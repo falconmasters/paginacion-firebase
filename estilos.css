@@ -1,0 +1,108 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: #EDEDED;
+	font-family: 'Roboto', sans-serif;
+}
+
+.contenedor {
+	max-width: 600px;
+	margin: 40px auto;
+}
+
+.cards {}
+
+.card {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #fff;
+	border-radius: 10px;
+	padding: 30px;
+	box-shadow: 0px 0px 20px 5px rgba(209,209,209, .25);
+	margin-bottom: 30px;
+}
+
+.card .datos {
+	display: flex;
+	gap: 20px;
+}
+
+.card .usuario {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.card .foto {
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	overflow: hidden;
+}
+
+.card .foto img {
+	width: 100%;
+	vertical-align: top;
+}
+
+.card .nombre {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.card .correo {
+	color: #AEAEAE;
+}
+
+.card .numero {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.paginacion {
+	display: flex;
+	justify-content: space-between;
+}
+
+.paginacion .boton {
+	display: flex;
+	align-items: center;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	color: #fff;
+	padding: 12px 20px;
+	background: #E8864F;
+	transition: .3s ease all;
+	border-radius: 20px;
+	border: none;
+	cursor: pointer;
+}
+
+.paginacion .boton i {
+	font-size: 14px;
+}
+
+.paginacion .boton .icono-izquierda {
+	margin-right: 20px;
+}
+.paginacion .boton .icono-derecha {
+	margin-left: 20px;
+}
+
+.paginacion .boton.inactivo {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.paginacion .boton.inactivo:hover {
+	background: #E8864F;
+}
+
+.paginacion .boton:hover {
+	background: #DA7136;
+}
