@@ -2,6 +2,9 @@ const contenedorCards = document.getElementById('cards');
 const botonAnterior = document.getElementById('botonAnterior');
 const botonSiguiente = document.getElementById('botonSiguiente');
 
+let ultimoDoc = null;
+let primerDoc = null;
+
 // Agregar personas a la BD
 // const personas = [
 // 	{nombre: 'Oliver', correo: 'oliver@correo.com', numero: 1},
@@ -21,3 +24,60 @@ const botonSiguiente = document.getElementById('botonSiguiente');
 // personas.forEach(persona => {
 // 	db.collection('usuarios').add(persona);
 // });
+
+db.collection('usuarios').orderBy('numero', 'asc').limit(4).onSnapshot((snapshot) => {
+	// console.log(snapshot.docs[0].data());
+
+	cargarDocumentos(snapshot.docs);
+});
+
+const cargarDocumentos = (documentos) => {
+	if(documentos.length > 0){
+		ultimoDoc = documentos[documentos.length - 1];
+		primerDoc = documentos[0];
+		
+		contenedorCards.innerHTML = '';
+
+		documentos.forEach(documento => {
+			contenedorCards.innerHTML += `
+				<div class="card">
+					<div class="datos">
+						<div class="foto">
+							<img src="https://i.pravatar.cc/150?img=${documento.data().numero}" alt="">
+						</div>
+						<div class="usuario">
+							<p class="nombre">${documento.data().nombre}</p>
+							<p class="correo">${documento.data().correo}</p>
+						</div>
+					</div>
+					<p class="numero">#${documento.data().numero}</p>
+				</div>
+			`;
+		});
+	}
+}
+
+botonSiguiente.addEventListener('click', () => {
+	db
+		.collection('usuarios')
+		.orderBy('numero', 'asc')
+		.limit(4)
+		.startAfter(ultimoDoc)
+		.onSnapshot((snapshot) => {
+			cargarDocumentos(snapshot.docs);
+		}
+	);
+});
+
+botonAnterior.addEventListener('click', () => {
+	db
+		.collection('usuarios')
+		.orderBy('numero', 'desc')
+		.limit(4)
+		.startAfter(primerDoc)
+		.onSnapshot((snapshot) => {
+			const documentos = snapshot.docs.reverse();
+			cargarDocumentos(documentos);
+		}
+	);
+});
